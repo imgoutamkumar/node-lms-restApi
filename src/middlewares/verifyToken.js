@@ -18,6 +18,7 @@ const verifyToken = async (req, res, next) => {
       });
     }
     req.userId = decoded.userId;
+    req.role = decoded.role;
     next();
   } catch (error) {
     res.status(500).json({

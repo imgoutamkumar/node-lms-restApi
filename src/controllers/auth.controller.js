@@ -37,9 +37,13 @@ const signUpController = async (req, res) => {
 
     //jwt
 
-    const token = jwt.sign({ userId: savedUser._id }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
-    });
+    const token = jwt.sign(
+      { userId: savedUser._id, role: savedUser.role },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "7d",
+      }
+    );
     await sendVerificationEmail(savedUser.email, verificationCode);
 
     res.cookie("token", token, {
@@ -120,7 +124,7 @@ const login = async (req, res) => {
       });
     }
 
-    const isPasswordValid = await bcryptjs.compare(password, user.password);
+    const isPasswordValid = await bcryptjs.compare(password, user?.password);
     if (!isPasswordValid) {
       return res.status(400).json({
         success: false,
@@ -128,9 +132,13 @@ const login = async (req, res) => {
       });
     }
 
-    const token = await jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
-    });
+    const token = await jwt.sign(
+      { userId: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "7d",
+      }
+    );
 
     user.lastLogin = Date.now();
     await user.save();
