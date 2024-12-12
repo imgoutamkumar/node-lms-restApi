@@ -120,7 +120,7 @@ const login = async (req, res) => {
       });
     }
 
-    const isPasswordValid = bcryptjs.compare(password, user.password);
+    const isPasswordValid = await bcryptjs.compare(password, user.password);
     if (!isPasswordValid) {
       return res.status(400).json({
         success: false,
@@ -128,7 +128,7 @@ const login = async (req, res) => {
       });
     }
 
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+    const token = await jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
 
