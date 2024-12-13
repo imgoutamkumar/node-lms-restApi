@@ -2,6 +2,8 @@ const User = require("../models/user.model");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
+const dotenv = require("dotenv");
+dotenv.config();
 const {
   sendVerificationEmail,
   sendWelcomeEmail,
@@ -258,7 +260,7 @@ const checkAuth = async (req, res) => {
     }
     res.status(200).json({
       success: true,
-      message: "Authorized",
+      message: "Authenticated",
       /* user: {
         ...user_doc,
         password: undefined,
