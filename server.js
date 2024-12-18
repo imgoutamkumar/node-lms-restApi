@@ -4,6 +4,8 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const { connectDB } = require("./src/db/connectDB");
 const authRoute = require("./src/routes/auth.route");
+const mediaRoute = require("./src/routes/media.route");
+
 dotenv.config();
 const app = express();
 const allowedOrigins = ["http://localhost:5173", "http://localhost:4200"];
@@ -22,6 +24,7 @@ app.use(
 app.use(express.json());
 app.use(cookieParser()); // allows us to parse incoming request with JSON payloads:req.body
 app.use("/api/auth", authRoute);
+app.use("/api/media", mediaRoute);
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   connectDB();

@@ -11,7 +11,7 @@ const {
   sendResetSuccessEmail,
 } = require("../mailtrap/emails");
 
-const signUpController = async (req, res) => {
+const signUp = async (req, res) => {
   const { email, password, name } = req.body;
   try {
     if (!email || !password || !name) {
@@ -280,7 +280,7 @@ const checkAuth = async (req, res) => {
   }
 };
 module.exports = {
-  signUpController,
+  signUp,
   verifyEmail,
   logout,
   login,
