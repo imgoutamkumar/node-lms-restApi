@@ -6,12 +6,12 @@ const {
 } = require("../helpers/cloudinary");
 
 const uploadMedia = async (req, res) => {
-  /* if (!req.file) {
+  if (!req.file) {
     return res.status(400).json({
       success: false,
       message: "file not found",
     });
-  } */
+  }
   try {
     console.log("req.file", req.file);
     const result = await uploadMediaToCloudinary(req.file.path);

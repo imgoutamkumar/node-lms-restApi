@@ -6,6 +6,41 @@ const courseSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
+    category: {
+      type: String,
+      require: true,
+    },
+    level: {
+      type: String,
+      require: true,
+    },
+    price: {
+      type: Number,
+      require: true,
+    },
+    primaryLanguage: {
+      type: String,
+      require: true,
+    },
+    subtitle: {
+      type: String,
+    },
+    description: {
+      type: String,
+      require: true,
+    },
+    objectives: {
+      type: String,
+      require: true,
+    },
+    welcomeMessage: {
+      type: String,
+      require: true,
+    },
+    imageUrl: {
+      type: String,
+      require: true,
+    },
     lectures: [
       {
         title: {
@@ -17,7 +52,11 @@ const courseSchema = new mongoose.Schema(
           required: true,
           default: false,
         },
-        video: {
+        videoUrl: {
+          type: String,
+          required: true,
+        },
+        public_id: {
           type: String,
           required: true,
         },
@@ -27,6 +66,13 @@ const courseSchema = new mongoose.Schema(
         },
       },
     ],
+
+    coupanCode: {
+      type: String,
+    },
+    discount: {
+      type: Number,
+    },
   },
   { timestamps: true }
 );
