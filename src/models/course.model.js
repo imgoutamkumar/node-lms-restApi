@@ -1,5 +1,27 @@
 const mongoose = require("mongoose");
-
+const lectureSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  isFreePreview: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  videoUrl: {
+    type: String,
+    //required: true,
+  },
+  public_id: {
+    type: String,
+    //required: true,
+  },
+  uploaded_at: {
+    type: Date,
+    default: Date.now(),
+  },
+});
 const courseSchema = new mongoose.Schema(
   {
     title: {
@@ -41,32 +63,22 @@ const courseSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
-    lectures: [
+    lectures: [lectureSchema],
+
+    students: [
       {
-        title: {
-          type: String,
-          required: true,
-        },
-        isFreePreview: {
-          type: Boolean,
-          required: true,
-          default: false,
-        },
-        videoUrl: {
-          type: String,
-          required: true,
-        },
-        public_id: {
-          type: String,
-          required: true,
-        },
-        uploaded_at: {
-          type: Date,
-          default: Date.now(),
-        },
+        type: mongoose.Types.ObjectId,
+        ref: "User",
       },
     ],
-
+    creator_id: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+    },
+    isPublished: {
+      type: Boolean,
+      default: false,
+    },
     coupanCode: {
       type: String,
     },
