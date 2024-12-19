@@ -155,7 +155,7 @@ const login = async (req, res) => {
       path: "/",
     });
 
-    res.status(201).json({
+    res.status(200).json({
       success: true,
       message: "Logged in Successfully",
       token: token,
