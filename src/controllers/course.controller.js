@@ -1,5 +1,6 @@
 const Course = require("../models/course.model");
-
+const User = require("../models/user.model");
+const mongoose = require("mongoose");
 const createCourse = async (req, res) => {
   const data = req.body;
   const creatorId = req.userId;
@@ -120,10 +121,76 @@ const courseDeleteById = async (req, res) => {
   }
 };
 
+const createReview = async (req, res) => {
+  try {
+    const userId = req.userId;
+    const { comment } = req.body;
+    const { id } = req.params;
+    const course = await Course.findById(id);
+    const review = {
+      comment: comment,
+      user: userId,
+    };
+    course.reviews.push(review);
+    await course.save();
+    res.status(200).json({
+      success: true,
+      message: "review created successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: true,
+      message: "Some error occured",
+    });
+  }
+};
+
+const allReviewsByCourseIdandUserId = async (req, res) => {
+  try {
+    const userId = req.userId;
+    const courseId = req.params.id;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: "User not authenticated.",
+        reviews: resReviewsData,
+      });
+    }
+    const course = await Course.findById(
+      { _id: courseId },
+      {
+        reviews: {
+          $elemMatch: { user: userId },
+        },
+      }
+    );
+    const resReviewsData = course.reviews.map((review) => ({
+      // This will contain only the reviews by the specified user
+      ...review.toObject(), // Convert Mongoose document to plain object
+      userName: user.name, // Add your extra data here
+      userImage: user.image,
+    }));
+    res.status(200).json({
+      success: true,
+      message: "Course details retrieved successfully.",
+      reviews: resReviewsData,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: true,
+      message: "Some error occured",
+    });
+  }
+};
+
 module.exports = {
   createCourse,
   allCourses,
   courseDetailsById,
   courseUpdateById,
   courseDeleteById,
+  createReview,
+  allReviewsByCourseIdandUserId,
 };

@@ -6,6 +6,8 @@ const {
   courseDetailsById,
   courseUpdateById,
   courseDeleteById,
+  createReview,
+  allReviewsByCourseIdandUserId,
 } = require("../controllers/course.controller");
 const router = express.Router();
 
@@ -15,5 +17,7 @@ router.get("/details/:id", courseDetailsById);
 router.put("/update/:id", verifyToken, courseUpdateById);
 
 router.delete("/delete/:id", verifyToken, courseDeleteById);
+router.put("/:id/review", verifyToken, createReview);
+router.get("/:id/reviews", verifyToken, allReviewsByCourseIdandUserId);
 
 module.exports = router;

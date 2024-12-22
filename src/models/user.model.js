@@ -20,6 +20,9 @@ const userSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
+    image: {
+      type: String,
+    },
     role: {
       type: String, // Data type is String
       enum: Object.values(Role),

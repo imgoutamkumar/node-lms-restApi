@@ -1,4 +1,19 @@
 const mongoose = require("mongoose");
+
+const reviewSchema = new mongoose.Schema(
+  {
+    comment: {
+      type: String,
+      required: true,
+    },
+    user: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+      required: [true, "user required"],
+    },
+  },
+  { timestamps: true }
+);
 const lectureSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -85,6 +100,7 @@ const courseSchema = new mongoose.Schema(
     discount: {
       type: Number,
     },
+    reviews: [reviewSchema],
   },
   { timestamps: true }
 );
