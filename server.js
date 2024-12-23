@@ -9,6 +9,8 @@ const mediaRoute = require("./src/routes/media.route");
 const courseRoute = require("./src/routes/course.route");
 dotenv.config();
 const app = express();
+app.use(express.json());
+app.use(cookieParser()); // allows us to parse incoming request with JSON payloads:req.body
 const allowedOrigins = ["http://localhost:5173", "http://localhost:4200"];
 app.use(
   cors({
@@ -19,11 +21,10 @@ app.use(
         callback(new Error("Not allowed by CORS"));
       }
     },
-    credentials: true,
+    credentials: true, // Allow cookies
   })
 );
-app.use(express.json());
-app.use(cookieParser()); // allows us to parse incoming request with JSON payloads:req.body
+
 app.use("/api/auth", authRoute);
 app.use("/api/user", userRoute);
 app.use("/api/media", mediaRoute);
