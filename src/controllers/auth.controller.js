@@ -150,9 +150,9 @@ const login = async (req, res) => {
       //secure: process.env.NODE_ENV === "production",
       //sameSite: "strict",
       secure: true,
-      sameSite: "None",
+      sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000, //7 days
-      path: "/",
+      //path: "/",
     });
 
     res.status(200).json({
