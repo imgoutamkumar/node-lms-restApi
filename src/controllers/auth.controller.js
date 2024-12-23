@@ -50,8 +50,9 @@ const signUp = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true, //cookie cannot accessed by client side js
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      //secure: process.env.NODE_ENV === "production",
+      secure: true,
+      sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000, //7 days
     });
 
@@ -150,7 +151,7 @@ const login = async (req, res) => {
       //secure: process.env.NODE_ENV === "production",
       //sameSite: "strict",
       secure: true,
-      sameSite: "strict",
+      sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000, //7 days
       //path: "/",
     });
