@@ -158,7 +158,7 @@ const allReviewsByCourseIdandUserId = async (req, res) => {
         reviews: resReviewsData,
       });
     }
-    const course = await Course.find(
+    const course = await Course.findById(
       { _id: courseId }
       /* {
         reviews: {
