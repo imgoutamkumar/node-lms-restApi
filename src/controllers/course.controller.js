@@ -158,13 +158,13 @@ const allReviewsByCourseIdandUserId = async (req, res) => {
         reviews: resReviewsData,
       });
     }
-    const course = await Course.findById(
-      { _id: courseId },
-      {
+    const course = await Course.find(
+      { _id: courseId }
+      /* {
         reviews: {
           $elemMatch: { user: userId },
         },
-      }
+      } */
     );
     const resReviewsData = course.reviews.map((review) => ({
       // This will contain only the reviews by the specified user
