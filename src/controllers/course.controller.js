@@ -136,6 +136,7 @@ const createReview = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "review created successfully",
+      review: review,
     });
   } catch (error) {
     res.status(500).json({
